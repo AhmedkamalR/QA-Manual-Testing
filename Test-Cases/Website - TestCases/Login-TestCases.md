@@ -17,6 +17,8 @@ This document contains **comprehensive test cases** for the Login functionality,
 | 7 | Use "Show Password" toggle | Password is displayed in plain text when enabled | Screenshot_ShowPassword.png |
 | 8 | Login with valid credentials while language = Arabic | Login successful with correct localization | Screenshot_ArabicLogin.png |
 | 9 | Login using valid credentials while cookies enabled | Session persists as expected | Screenshot_CookiesEnabled.png |
+| 10 | Login after clearing browser cache | User can still login successfully | Screenshot_ClearCache.png |
+| 11 | Login while enabling browser autofill | Credentials autofilled and login successful | Screenshot_Autofill.png |
 
 ---
 
@@ -36,6 +38,9 @@ This document contains **comprehensive test cases** for the Login functionality,
 | 10 | Attempt login after 5 failed tries | Account locked or CAPTCHA displayed | Screenshot_AccountLock.png |
 | 11 | Enter valid credentials but internet is disconnected | Proper error "No internet connection" shown | Screenshot_NoInternet.png |
 | 12 | Enter valid credentials but account is inactive | Error: "Account inactive, contact support" | Screenshot_InactiveAccount.png |
+| 13 | Enter credentials with leading/trailing spaces ( ` user@test.com ` ) | Error displayed or system trims input | Screenshot_TrimmedInput.png |
+| 14 | Attempt login with expired/invalid session cookie | User forced to re-login | Screenshot_InvalidSession.png |
+| 15 | Login with correct credentials but from blocked IP | Error: "Access denied" | Screenshot_BlockedIP.png |
 
 ---
 
@@ -55,10 +60,14 @@ This document contains **comprehensive test cases** for the Login functionality,
 | 10 | Open multiple tabs and login in one tab | Other tabs are updated to logged-in state or require refresh | Screenshot_MultiTabs.png |
 | 11 | Enter mixed case email (`TestUser@Domain.com`) | System accepts and normalizes email (case insensitive) | Screenshot_EmailCase.png |
 | 12 | Login using password with leading/trailing spaces (` pass123 `) | System trims input before validation | Screenshot_TrimSpaces.png |
+| 13 | Resize browser window during login | Page responsive, no crash | Screenshot_Resize.png |
+| 14 | Switch network (Wi-Fi → Mobile Data) during login | Session handled gracefully, no crash | Screenshot_NetworkSwitch.png |
+| 15 | Press browser back button immediately after login | User redirected properly without breaking session | Screenshot_BackButton.png |
+| 16 | Try login with multiple tabs refreshing simultaneously | System handles requests without crash | Screenshot_MultiRefresh.png |
 
 ---
 
 📌 **Coverage Achieved**  
-- **Valid Scenarios**: Normal login, remember me, logout, forgot password, multi-device, localization.  
-- **Invalid Scenarios**: Empty fields, invalid format, wrong password, unregistered account, inactive/expired account, account lock, no internet, no JS.  
-- **Edge Scenarios**: Very long inputs, special chars, SQL injection, XSS, emojis, no cookies, concurrency, multi-tabs, input trimming.  
+- **Valid Scenarios**: Normal login, remember me, logout, forgot password, multi-device, localization, autofill, clear cache.  
+- **Invalid Scenarios**: Empty fields, invalid format, wrong password, unregistered account, inactive/expired account, account lock, no internet, no JS, blocked IP, invalid session, trimmed input.  
+- **Edge Scenarios**: Very long inputs, special chars, SQL injection, XSS, emojis, no cookies, concurrency, multi-tabs, input trimming, resize, network switch, back button, multi-refresh.  
