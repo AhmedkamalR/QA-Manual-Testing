@@ -10,16 +10,20 @@ It defines the scope, approach, resources, tools, risks, and reporting process f
 /Test-Plan-Strategy
 ├── Master_Test_Plan.md
 ├── Test_Strategy.md
-├── Test_Scope.md
-├── Test_Approach.md
-├── Entry_Exit_Criteria.md
-├── Test_Deliverables.md
-├── Test_Environments.md
-├── Test_Tools.md
+├── Test_Estimation.md
+├── Test_Entry_Exit_Criteria.md
+├── Test_Environment_Plan.md
+├── Test_Metrics_And_Reporting.md
 ├── Risk_Assessment.md
-├── Reporting_Communication.md
-├── Resource_Timeline_Planning.md
-└── Responsibilities.md 
+├── Defect_Management_Process.md
+├── Test_Schedule.md
+├── Traceability_Matrix.md
+├── Test_Reporting.md
+├── QA_Standards_Guidelines.md
+└── Continuous_Improvement.md
+
+---
+
 
 ---
 
@@ -27,16 +31,17 @@ It defines the scope, approach, resources, tools, risks, and reporting process f
 
 - **Master_Test_Plan.md** – High-level QA plan for the entire project (objectives, scope, test levels, exit criteria).  
 - **Test_Strategy.md** – Testing methodology, test types (functional, non-functional, regression, automation), tools & standards.  
-- **Test_Scope.md** – Defines in-scope vs. out-of-scope features for testing.  
-- **Test_Approach.md** – Detailed approach for test execution, defect management, and test levels.  
-- **Entry_Exit_Criteria.md** – Conditions for starting/stopping different test phases.  
-- **Test_Deliverables.md** – List of all deliverables (plans, cases, results, reports).  
-- **Test_Environments.md** – Description of environments (DEV, QA, UAT, PROD) and required configurations.  
-- **Test_Tools.md** – Tools for test management, bug tracking, automation, and reporting.  
-- **Risk_Assessment.md** – Potential project risks, dependencies, and mitigation plan.  
-- **Reporting_Communication.md** – Communication plan, reporting frequency, stakeholders updates.  
-- **Resource_Timeline_Planning.md** – QA team allocation, timelines, and effort estimation.  
-- **Responsibilities.md** – Roles, ownership, and RACI matrix for QA team.  
+- **Test_Estimation.md** – Effort estimation, resource allocation, and test cycle duration.  
+- **Test_Entry_Exit_Criteria.md** – Conditions for starting/stopping different test phases.  
+- **Test_Environment_Plan.md** – Setup/configuration details for DEV, QA, UAT, and PROD.  
+- **Test_Metrics_And_Reporting.md** – Defines KPIs, defect density, test pass rate, coverage metrics, and reporting cadence.  
+- **Risk_Assessment.md** – Potential risks, dependencies, and mitigation plan.  
+- **Defect_Management_Process.md** – Lifecycle of a defect (new → assigned → fixed → retested → closed), priorities, severities.  
+- **Test_Schedule.md** – Test phases mapped to project milestones, timelines, and dependencies.  
+- **Traceability_Matrix.md** – Mapping between requirements, test cases, and defects to ensure coverage.  
+- **Test_Reporting.md** – Types of reports (daily, sprint, release), stakeholders, and reporting frequency.  
+- **QA_Standards_Guidelines.md** – QA best practices, naming conventions, coding/testing standards.  
+- **Continuous_Improvement.md** – Lessons learned, retrospective findings, process improvement actions.  
 
 ---
 
@@ -55,5 +60,6 @@ Having these documents ensures:
 - Traceability between requirements and test coverage.  
 - Early risk identification & mitigation.  
 - Consistency across all testing phases.  
+- Continuous improvement and QA maturity growth.  
 
 ---
