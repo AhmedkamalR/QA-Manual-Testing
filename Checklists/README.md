@@ -1,7 +1,7 @@
 # ✅ QA Checklists
 
-This folder contains **professional QA Checklists** covering all aspects of testing for an E-commerce project (Web, Mobile, API).  
-Each checklist follows **industry best practices** to ensure **comprehensive test coverage**.
+This folder contains **professional QA Checklists** covering all aspects of testing for an E-commerce project (Web, Mobile, API, and beyond).  
+Each checklist follows **industry best practices** to ensure **comprehensive test coverage** and consistency across releases.
 
 ---
 
@@ -14,17 +14,25 @@ Each checklist follows **industry best practices** to ensure **comprehensive tes
 - **Security_Checklist.md** → OWASP Top 10 coverage, authentication, authorization, session handling.  
 - **Performance_Checklist.md** → Load, stress, scalability, response time validation.  
 - **Accessibility_Checklist.md** → WCAG 2.1 compliance, screen reader checks, color contrast, keyboard navigation.  
+- **Usability_Checklist.md** → Intuitive navigation, error prevention, feedback clarity, overall user experience.  
+- **Internationalization_Localization_Checklist.md** → Language coverage, RTL/LTR layout, date/currency/number formatting, cultural correctness.  
+
+---
+
+## 📁 Folder Hierarchy
 
 /Checklists
-   ├── README.md
-   ├── Web_Testing_Checklist.md
-   ├── Mobile_Testing_Checklist.md
-   ├── API_Testing_Checklist.md
-   ├── Regression_Checklist.md
-   ├── Smoke_Sanity_Checklist.md
-   ├── Security_Checklist.md
-   ├── Performance_Checklist.md
-   └── Accessibility_Checklist.md
+├── README.md
+├── Web_Testing_Checklist.md
+├── Mobile_Testing_Checklist.md
+├── API_Testing_Checklist.md
+├── Regression_Checklist.md
+├── Smoke_Sanity_Checklist.md
+├── Security_Checklist.md
+├── Performance_Checklist.md
+├── Accessibility_Checklist.md
+├── Usability_Checklist.md
+└── Internationalization_Localization_Checklist.md
 
 ---
 
@@ -43,3 +51,5 @@ Having detailed checklists ensures:
 - Standardized validation across Web, Mobile, and API.  
 - Higher confidence in releases due to risk-based coverage.  
 - Saves time during **test execution & review cycles**.
+- Improves collaboration between QA, Dev, and Product teams.
+
