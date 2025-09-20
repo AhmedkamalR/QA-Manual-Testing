@@ -5,8 +5,8 @@ It defines the scope, approach, resources, tools, risks, and reporting process f
 
 ---
 
-## 📂 Structure
-
+## 📁 Folder Structure
+```plaintext
 /Test-Plan-Strategy
 ├── Master_Test_Plan.md
 ├── Test_Strategy.md
@@ -21,10 +21,7 @@ It defines the scope, approach, resources, tools, risks, and reporting process f
 ├── Test_Reporting.md
 ├── QA_Standards_Guidelines.md
 └── Continuous_Improvement.md
-
----
-
-
+```
 ---
 
 ## 📑 Contents
