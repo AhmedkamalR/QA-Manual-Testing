@@ -20,19 +20,19 @@ Each checklist follows **industry best practices** to ensure **comprehensive tes
 ---
 
 ## 📁 Folder Hierarchy
-
+```plaintext
 /Checklists
-├── README.md
-├── Web_Testing_Checklist.md
-├── Mobile_Testing_Checklist.md
-├── API_Testing_Checklist.md
-├── Regression_Checklist.md
-├── Smoke_Sanity_Checklist.md
-├── Security_Checklist.md
-├── Performance_Checklist.md
-├── Accessibility_Checklist.md
-├── Usability_Checklist.md
-└── Internationalization_Localization_Checklist.md
+   ├── README.md
+   ├── Web_Testing_Checklist.md
+   ├── Mobile_Testing_Checklist.md
+   ├── API_Testing_Checklist.md
+   ├── Regression_Checklist.md
+   ├── Smoke_Sanity_Checklist.md
+   ├── Security_Checklist.md
+   ├── Performance_Checklist.md
+   ├── Accessibility_Checklist.md
+   ├── Usability_Checklist.md
+   └── Internationalization_Localization_Checklist.md
 
 ---
 
