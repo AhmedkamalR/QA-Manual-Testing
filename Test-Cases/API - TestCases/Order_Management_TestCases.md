@@ -1,7 +1,6 @@
 # 🔌 API – Order Management Test Cases
 
-This document contains detailed **API test cases** for the **Order Management module**.  
-Covers Valid, Invalid, Edge, Security, and Performance scenarios.
+Extensive **API test coverage** for the **Order Management module**, including validation, security, performance, and integration scenarios.
 
 ---
 
@@ -9,12 +8,16 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | POST /orders with valid payload (items + address + payment) | 201 Created, order ID returned | – |
-| 2 | GET /orders/{id} with valid token | 200 OK, order details returned | – |
-| 3 | GET /orders (list) | Returns list with pagination metadata | – |
-| 4 | PUT /orders/{id}/cancel before dispatch | 200 OK, status=Cancelled | – |
-| 5 | POST /orders/{id}/return valid item | 200 OK, return initiated | – |
-| 6 | POST /orders/{id}/reorder | 200 OK, new cart/session created | – |
+| 1 | POST /orders with valid payload | 201 Created, order ID returned | – |
+| 2 | GET /orders/{id} (auth user) | 200 OK with full details | – |
+| 3 | GET /orders (paginated) | 200 OK + metadata (page, total, limit) | – |
+| 4 | PUT /orders/{id}/cancel (before dispatch) | 200 OK, status=Cancelled | – |
+| 5 | POST /orders/{id}/return | 200 OK, return initiated | – |
+| 6 | POST /orders/{id}/reorder | 201 Created, new cart returned | – |
+| 7 | PATCH /orders/{id}/update-address | 200 OK, address updated | – |
+| 8 | POST /orders/{id}/review | 201 Created, review stored | – |
+| 9 | GET /orders/{id}/invoice | 200 OK, PDF binary returned | – |
+| 10 | GET /orders/track/{trackingId} | 200 OK, real-time status | – |
 
 ---
 
@@ -22,11 +25,14 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | POST /orders with empty items array | 400 Bad Request, validation error | – |
-| 2 | GET /orders/{id} without token | 401 Unauthorized | – |
-| 3 | PUT /orders/{id}/cancel after shipped | 409 Conflict, cannot cancel | – |
-| 4 | POST /orders/{id}/return with invalid item ID | 404 Not Found | – |
-| 5 | Access another user’s order with valid token | 403 Forbidden | – |
+| 1 | POST /orders with empty payload | 400 Bad Request | – |
+| 2 | GET /orders/{id} without auth token | 401 Unauthorized | – |
+| 3 | PUT /orders/{id}/cancel after shipped | 409 Conflict | – |
+| 4 | POST /orders/{id}/return invalid item ID | 404 Not Found | – |
+| 5 | GET /orders of another user | 403 Forbidden | – |
+| 6 | POST /orders/{id}/review before delivery | 422 Validation Error | – |
+| 7 | PATCH /orders/{id}/update-address post-dispatch | 400 Validation Error | – |
+| 8 | Invalid date filters in GET /orders | 400 Bad Request | – |
 
 ---
 
@@ -34,20 +40,26 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Create order with 1000 items | Server handles and responds within SLA | – |
-| 2 | Stress test: 50 requests to reorder endpoint simultaneously | No duplicates, server handles concurrency | – |
-| 3 | Cancel order while payment still pending | Status updated consistently | – |
-| 4 | GET /orders with invalid page/size params | Returns validation error | – |
+| 1 | POST /orders with 500 items | 201 Created, handled within SLA | – |
+| 2 | GET /orders?page=1000 | Empty list, no error | – |
+| 3 | Simultaneous cancel + return on same ID | Proper lock & consistency | – |
+| 4 | Payment confirmation delayed | Order marked pending → paid | – |
+| 5 | Retry same POST /orders with idempotency key | No duplicate orders created | – |
+| 6 | Stress: 100 concurrent reorder requests | Server handles gracefully | – |
+| 7 | GET /orders with filter (date, status, seller) | Proper filtered results | – |
+| 8 | PATCH address while tracking active | Prevented; returns 409 | – |
 
 ---
 
-## 🔒 Security & Integrity Tests
+## 🔒 Security Tests
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | SQL injection in order ID | Request rejected, no data leakage | – |
-| 2 | Modify return payload to refund more than paid | Server rejects, logs alert | – |
-| 3 | Replay attack on reorder endpoint | Idempotency key prevents duplication | – |
+| 1 | SQL injection in order ID | Request blocked | – |
+| 2 | Modify amount in request body | Server ignores client-side value | – |
+| 3 | Replay payment event | Rejected (idempotency enforced) | – |
+| 4 | Access /orders via invalid JWT | 401 Unauthorized | – |
+| 5 | Cross-tenant data access attempt | 403 Forbidden | – |
 
 ---
 
@@ -55,15 +67,15 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Load test: 1000 requests/minute to GET /orders | Server responds within SLA (e.g., <300ms) | – |
-| 2 | Spike test: sudden surge in order placements | System scales, no downtime | – |
-| 3 | API returns consistent status under load | No 500 errors | – |
+| 1 | Load test 1000 req/min to GET /orders | SLA <300ms maintained | – |
+| 2 | Stress 500 concurrent order creations | No downtime, queueing applied | – |
+| 3 | Spike test (peak traffic 2x normal) | Autoscale triggers correctly | – |
+| 4 | GET /orders/{id} latency under load | <200ms avg | – |
 
 ---
 
 ## 📌 Coverage Achieved
-- **Valid**: Create, view, cancel, return, reorder via API.  
-- **Invalid**: Missing tokens, invalid payloads, unauthorized access.  
-- **Edge**: Large payloads, concurrency, pending-payment scenarios.  
-- **Security**: Injection, tampering, replay attack prevention.  
-- **Performance**: Load, stress, spike tests with SLA adherence.  
+- **Full CRUD coverage for orders, cancel, return, reorder**
+- **Validation, pagination, concurrency, idempotency**
+- **Security: auth, replay, tampering, injection**
+- **Performance: load, stress, spike resilience**
