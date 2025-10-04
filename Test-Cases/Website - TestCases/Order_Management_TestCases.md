@@ -1,7 +1,6 @@
 # 💻 Website – Order Management Test Cases
 
-This document contains detailed **Website test cases** for the **Order Management module**.  
-Covers Valid, Invalid, Edge, Security, and Performance scenarios.
+Comprehensive **Website test coverage** for the **Order Management module**, covering full order lifecycle, user actions, and integrations.
 
 ---
 
@@ -9,13 +8,22 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Place order via checkout with saved card | Order confirmed, order ID shown | Screenshot |
-| 2 | Place order with guest checkout (if supported) | Order placed, guest confirmation email sent | – |
-| 3 | View order history in profile | Orders listed with correct status and totals | – |
-| 4 | Download invoice PDF | Invoice generated correctly | PDF |
-| 5 | Cancel order before shipment | Status updates to "Cancelled", refund processed | – |
-| 6 | Initiate return from order details | Return request submitted successfully | – |
-| 7 | Apply gift card during reorder | Gift card balance applied correctly | – |
+| 1 | Place order via checkout (COD) | Confirmation page + order ID shown | Screenshot |
+| 2 | Place order with saved card | Payment processed, order created | – |
+| 3 | Place order with wallet + card split payment | Both payment methods recorded | – |
+| 4 | Apply coupon and gift card | Totals recalculated correctly | – |
+| 5 | Edit address in checkout | Updated address reflected | – |
+| 6 | Place order with multiple sellers | Orders split properly | – |
+| 7 | Access “My Orders” from profile | All recent orders shown | – |
+| 8 | Open order details | Products, totals, shipping data visible | – |
+| 9 | Track order via carrier tracking link | Redirects to tracking page | – |
+| 10 | Cancel order before dispatch | Status updates, refund processed | – |
+| 11 | Download invoice | PDF generated correctly | PDF |
+| 12 | Initiate return/exchange request | Request logged & confirmation email sent | – |
+| 13 | Submit product review after delivery | Review saved successfully | – |
+| 14 | Reorder from order details | Cart populated successfully | – |
+| 15 | Check email confirmation for placed order | Email received with order summary | – |
+| 16 | Apply multiple discount tiers | Correct stacking logic applied | – |
 
 ---
 
@@ -23,11 +31,14 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Cancel after dispatch | Error message: "Cannot cancel after dispatch" | – |
-| 2 | Reorder item no longer in catalog | Error: "Product unavailable" | – |
-| 3 | Access other user’s order by changing URL ID | Unauthorized error | – |
-| 4 | Place order without terms & conditions checkbox (if required) | Validation blocks | – |
-| 5 | Try to return item after return window expired | Blocked with message | – |
+| 1 | Place order without accepting terms | Validation blocks submission | – |
+| 2 | Try cancel order after shipped | Error “Already shipped” | – |
+| 3 | Reorder unavailable product | Product unavailable message | – |
+| 4 | Return after return period | Error: “Return window expired” | – |
+| 5 | Change order status from browser dev tools | No effect; server validation applies | – |
+| 6 | Access other user’s order link | 403 Forbidden | – |
+| 7 | Duplicate reorder clicks | One order created only | – |
+| 8 | Retry payment after timeout | Prevent duplicate charge | – |
 
 ---
 
@@ -35,20 +46,25 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Place order with mixed shipping methods | Correctly split shipments shown | – |
-| 2 | Reorder multiple orders rapidly | Cart merges correctly without duplicates | – |
-| 3 | Open same order in 2 browser tabs, cancel in one | Other tab shows updated status after refresh | – |
-| 4 | Apply multiple vouchers at checkout | Only valid stacking allowed | – |
+| 1 | Place bulk order (50+ SKUs) | Checkout handles successfully | – |
+| 2 | Mixed items: physical + digital | Both fulfillments handled correctly | – |
+| 3 | Apply coupon expired during checkout | Coupon rejected gracefully | – |
+| 4 | Open order page on multiple tabs | Syncs latest state | – |
+| 5 | Network disconnect during cancel | Retry option displayed | – |
+| 6 | Apply refund to wallet and card | Split refunds handled correctly | – |
+| 7 | Use browser back after placing order | No duplicate submission | – |
+| 8 | Switch user account mid-session | Orders list updates correctly | – |
 
 ---
 
-## 🔒 Security & Integrity Tests
+## 🔒 Security Tests
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Modify order amount in dev tools | Server rejects manipulation | – |
-| 2 | Access API call of another user’s order | Unauthorized error | – |
-| 3 | Check caching in browser history (invoice page) | Sensitive data not cached | – |
+| 1 | Inject SQL in order ID param | Request sanitized | – |
+| 2 | Modify order total in console | Server rejects invalid payload | – |
+| 3 | Access invoice without auth | Redirect to login | – |
+| 4 | Verify HTTPS enforced during payment | Secure connection only | – |
 
 ---
 
@@ -56,15 +72,17 @@ Covers Valid, Invalid, Edge, Security, and Performance scenarios.
 
 | Step | Action | Expected Result | Attachments |
 |------|--------|-----------------|-------------|
-| 1 | Load 100+ orders in order history | Pagination/infinite scroll works | – |
-| 2 | Cancel order with poor internet | Retry/loader shown, no duplicate cancellation | – |
-| 3 | Accessibility: Tab + screen reader navigation | Proper focus order and labels | – |
+| 1 | Load order history (200+ orders) | Pagination works smoothly | – |
+| 2 | Simulate slow backend response | UI shows loading, no crash | – |
+| 3 | Accessibility (Tab + screen reader) | Focus order correct | – |
+| 4 | Refresh order list repeatedly | No duplication | – |
+| 5 | Track order updates auto-refresh every 10s | Real-time updates visible | – |
 
 ---
 
 ## 📌 Coverage Achieved
-- **Valid**: Checkout, guest orders, invoice, reorder, returns.  
-- **Invalid**: Expired returns, unauthorized access, unavailable products.  
-- **Edge**: Multi-shipment, duplicate reorders, parallel actions.  
-- **Security**: Unauthorized blocked, sensitive data protected.  
-- **Performance/UX**: Pagination, accessibility, retry on poor network.  
+Covers:
+- **Order creation, tracking, return, reorder, refund**
+- **Edge handling: concurrency, timeouts, expired coupons**
+- **Security: URL tampering, session isolation, HTTPS**
+- **Performance: pagination, stability under large datasets**
